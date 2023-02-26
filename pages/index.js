@@ -122,7 +122,7 @@ export default function Home() {
           minH="100vh"
           w="full"
         >
-          <Flex justifyContent="space-between" p="1" alignItems="center">
+          <Flex justifyContent="space-between" p="1% 2%" alignItems="center">
             <Heading color="white" fontSize="4xl">
               Kanban{" "}
             </Heading>
@@ -137,7 +137,6 @@ export default function Home() {
             alignContent="center"
             w="100%"
             wrap="wrap"
-
           >
             {dataState.order.map((colId) => {
               const category = dataState.kanbanCategories[colId];
@@ -157,16 +156,66 @@ export default function Home() {
 
 const AppData = {
   items: {
-    1: { id: 1, title: "title 1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", progress: 10 },
-    2: { id: 2, title: "title 2", description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", progress: 60 },
-    3: { id: 3, title: "title 3", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", progress: 100 },
-    4: { id: 4, title: "title 4", description: "Excepteur sint occaecat cupidatat non proident.", progress: 0 },
+    1: {
+      id: 1,
+      title: "Task Name One",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      progress: 10,
+      user: "https://i.pravatar.cc/150?img=68",
+    },
+    2: {
+      id: 2,
+      title: "Task Name Two",
+      description:
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      progress: 60,
+      user: "https://i.pravatar.cc/150?img=49",
+    },
+    3: {
+      id: 3,
+      title: "Task Name three",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      progress: 100,
+      user: "https://i.pravatar.cc/150?img=60",
+    },
+    4: {
+      id: 4,
+      title: "Task Name four",
+      description: "Excepteur sint occaecat cupidatat non proident.",
+      progress: 0,
+      user: "",
+    },
+        5: {
+      id: 5,
+      title: "Task Name five",
+      description:
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      progress: 60,
+      user: "https://i.pravatar.cc/150?img=49",
+    },
+    6: {
+      id: 6,
+      title: "Task Name six",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      progress: 90,
+      user: "https://i.pravatar.cc/150?img=60",
+    },
+    7: {
+      id: 7,
+      title: "Task Name seven",
+      description: "Excepteur sint occaecat cupidatat non proident.",
+      progress: 0,
+      user: "",
+    },
   },
   kanbanCategories: {
-    "col-1": { id: "col-1", title: "to do", tasksList: [1, 2, 3, 4] },
-    "col-2": { id: "col-2", title: "in progress", tasksList: [] },
-    "col-3": { id: "col-3", title: "testing", tasksList: [] },
-    "col-4": { id: "col-4", title: "done", tasksList: [] },
+    "col-1": { id: "col-1", title: "to do", tasksList: [4,7] },
+    "col-2": { id: "col-2", title: "in progress", tasksList: [1, 2] },
+    "col-3": { id: "col-3", title: "testing", tasksList: [5,6] },
+    "col-4": { id: "col-4", title: "done", tasksList: [3] },
   },
 
   //this will facilitate the reordering otherwise

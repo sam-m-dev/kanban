@@ -16,6 +16,7 @@ const colors = {
 const fonts = {
     heading: "Gloock",
     body: "Roboto Slab",
+    text:"Gloock"
     
 }
 
