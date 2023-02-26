@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
-import { Flex, Heading,Box} from "@chakra-ui/react";
-import { DragDropContext} from "react-beautiful-dnd";
+import { Flex, Heading, Box, Text, Divider } from "@chakra-ui/react";
+import { DragDropContext } from "react-beautiful-dnd";
 import dynamic from "next/dynamic";
 
 // error fix column import ssr
@@ -12,6 +12,12 @@ const Column = dynamic(import("../src/components/Elements/Column"), {
 
 export default function Home() {
   const [dataState, setDataState] = useState(AppData);
+  const current = new Date().toLocaleString("en-us", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+  const date = `${current}`;
 
   //Reordering tasks inside column
   const reorderColumn = (colSource, startIndex, endIndex) => {
@@ -37,13 +43,13 @@ export default function Home() {
     // - same position
     // return element to its original spot
 
-    if ((!destination) ||  (
-     ( destination.droppableId === source.droppableId) &&
-     ( destination.index === source.index)
-    ) ){
+    if (
+      !destination ||
+      (destination.droppableId === source.droppableId &&
+        destination.index === source.index)
+    ) {
       return;
     }
-
 
     //if order column changed update columns
     // gets the column from where the element is taken
@@ -110,54 +116,62 @@ export default function Home() {
 
       {/* drag n drop conatiner using eautiful react dnd */}
       <DragDropContext onDragEnd={onDragdEnd}>
-        <Flex flexDir="column" bg="dark" minH="100vh" w="full">
-          <Heading color="white">Kanban</Heading>
+        <Flex
+          flexDir="column"
+          bgGradient="linear(to-l, #44A08D,  #093637)"
+          minH="100vh"
+          w="full"
+        >
+          <Flex justifyContent="space-between" p="1" alignItems="center">
+            <Heading color="white" fontSize="4xl">
+              Kanban{" "}
+            </Heading>
+            <Heading color="white" fontSize="lg">
+              {date}
+            </Heading>
+          </Flex>
+          <Divider orientation="horizontal" />
           <Flex
             justify="center"
-            px="2%"
+            p="5%"
             alignContent="center"
             w="100%"
             wrap="wrap"
+
           >
-            {
-              dataState.order.map((colId) => {
-       
-                const category = dataState.kanbanCategories[colId];
-             
-                const tasks = category.tasksList.map(
-                  (task) => dataState.items[task]
-                );
-      
-                return (
-                  <Column key={category.id} col={category} items={tasks} />
-                );
-              })
-            }
+            {dataState.order.map((colId) => {
+              const category = dataState.kanbanCategories[colId];
+
+              const tasks = category.tasksList.map(
+                (task) => dataState.items[task]
+              );
+
+              return <Column key={category.id} col={category} items={tasks} />;
+            })}
           </Flex>
-       
         </Flex>
       </DragDropContext>
-    </> 
+    </>
   );
 }
 
 const AppData = {
   items: {
-    1: { id: 1, title: "title 1", description: "lorem ipsum 1", progress:10},
-    2: { id: 2, title: "title 2", description: "lorem ipsum 2", progress:60 },
-    3: { id: 3, title: "title 3", description: "lorem ipsum 3", progress:100 },
-    4: { id: 4, title: "title 4", description: "lorem ipsum 4" , progress:0 },
+    1: { id: 1, title: "title 1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", progress: 10 },
+    2: { id: 2, title: "title 2", description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", progress: 60 },
+    3: { id: 3, title: "title 3", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", progress: 100 },
+    4: { id: 4, title: "title 4", description: "Excepteur sint occaecat cupidatat non proident.", progress: 0 },
   },
   kanbanCategories: {
     "col-1": { id: "col-1", title: "to do", tasksList: [1, 2, 3, 4] },
-    "col-2": { id: "col-2", title: "prog", tasksList: [] },
-    "col-3": { id: "col-3", title: "test", tasksList: [] },
+    "col-2": { id: "col-2", title: "in progress", tasksList: [] },
+    "col-3": { id: "col-3", title: "testing", tasksList: [] },
     "col-4": { id: "col-4", title: "done", tasksList: [] },
   },
 
   //this will facilitate the reordering otherwise
   //when trying rerender to reorder .map() will
-  //throw error 
+  //throw error
 
   order: ["col-1", "col-2", "col-3", "col-4"],
 };

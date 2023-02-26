@@ -24,7 +24,7 @@ export default function Column({ col, items }) {
     ]} minH="200px" h="100%
     " flexDir="column" bg="orange" m="1%">
       <Flex h="56px" align="center" justify="center" direction="column">
-        <Text fontSize='lg'>{col.title}</Text>
+        <Text fontSize='lg' textTransform="uppercase" color="white">{col.title}</Text>
       </Flex>
 
       {/* the cards container will be the droppable element 
@@ -54,14 +54,18 @@ export default function Column({ col, items }) {
                     {...provided.dragHandleProps}
                   >
                     <Card variant="elevated">
-                      <CardHeader>
+                      <CardHeader borderBottom="0.5px solid lightgrey">
                         <Heading size="md" textTransform="capitalize"> {item.title}</Heading>
                       </CardHeader>
-                      <Progress alignSelf="center" w="95%" colorScheme="red" bg="dark" size='sm'  value={`${item.progress}`} />
-               
+                
                       <CardBody>
-                        <Text>{item.description}</Text>
+              <Text p="2% 0 5%">
+                          {item.description}
+                        </Text>
+                                 <Progress alignSelf="center" w="95%" colorScheme='yellow' bg="dark" size='sm' mb="5%"  value={`${item.progress}`} />
+             
                       </CardBody>
+                      
                     </Card> 
                   </Flex>
                 )}
